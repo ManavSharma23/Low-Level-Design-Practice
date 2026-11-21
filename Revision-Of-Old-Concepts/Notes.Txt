@@ -1,0 +1,229 @@
+================================================================================
+                    OBJECT-ORIENTED PROGRAMMING (OOP) IN PYTHON
+================================================================================
+
+1. CLASS
+--------------------------------------------------------------------------------
+- Definition: A blueprint, template, or prototype used to create objects.
+- What it does: Defines the attributes (data/state) and methods (behaviors) that 
+  its objects will possess.
+- Real-world analogy: An architectural blueprint of a house. The blueprint itself 
+  is not a house, but it defines how houses built from it will look and function.
+
+Example:
+    class Car:
+        wheels = 4  # Class attribute (shared by all instances)
+
+
+2. OBJECT
+--------------------------------------------------------------------------------
+- Definition: An instance of a class created in memory.
+- Characteristics:
+    - Has an identity, state (data stored in attributes), and behavior (methods).
+    - Multiple objects can be created from a single class, each maintaining its 
+      own separate data.
+- Real-world analogy: The actual physical house built using the architectural blueprint.
+
+Example:
+    car1 = Car()
+    car2 = Car()
+
+
+3. CONSTRUCTOR (`__init__`)
+--------------------------------------------------------------------------------
+- Definition: A special dunder (double-underscore) method that Python automatically 
+  invokes whenever a new instance of a class is created.
+- Purpose: Initializes the object's state by assigning initial values to instance 
+  variables.
+- Note: It cannot return any value (implicitly returns `None`).
+
+Example:
+    class Student:
+        def __init__(self, name, roll_no):
+            self.name = name          # Instance attribute
+            self.roll_no = roll_no    # Instance attribute
+
+    s1 = Student("Alice", 101)
+
+
+4. METHOD
+--------------------------------------------------------------------------------
+- Definition: A function defined inside a class that represents the behavior or 
+  actions that an object can perform.
+- Types of Methods in Python:
+    1. Instance Method: Receives `self` as the first parameter; works on instance data.
+    2. Class Method: Uses `@classmethod`, receives `cls` as the first parameter; 
+       works on class-level data.
+    3. Static Method: Uses `@staticmethod`; does not receive `self` or `cls`; 
+       behaves like a regular utility function grouped logically inside the class.
+
+Example:
+    class Student:
+        def __init__(self, name):
+            self.name = name
+
+        def introduce(self):  # Instance method
+            return f"Hi, I am {self.name}."
+
+
+5. `self` KEYWORD
+--------------------------------------------------------------------------------
+- Definition: An explicit reference to the current instance of the class.
+- Role:
+    - Used inside method definitions to access and modify the attributes and other 
+      methods belonging to that specific object.
+    - Python passes the instance automatically as the first argument when calling a method 
+      (e.g., `s1.introduce()` is translated internally to `Student.introduce(s1)`).
+- Note: `self` is a strong community convention, not a reserved Python keyword (any 
+  valid variable name can technically be used, but changing it is strongly discouraged).
+
+
+================================================================================
+                         CORE PILLARS OF OOP
+================================================================================
+
+1. INHERITANCE
+--------------------------------------------------------------------------------
+- Definition: A mechanism where a child (derived/subclass) class acquires the 
+  attributes and methods of an existing parent (base/superclass) class.
+- Key Benefits:
+    - Code reusability: Prevents redundant/duplicate code.
+    - Extensibility: You can add new features or specialize existing ones without 
+      modifying the base class.
+- Types of Inheritance:
+    1. Single Inheritance: Child inherits from one parent (`Child(Parent)`).
+    2. Multiple Inheritance: Child inherits from more than one parent (`Child(P1, P2)`).
+    3. Multilevel Inheritance: A class inherits from a child class (`C(B)` where `B(A)`).
+    4. Hierarchical Inheritance: Multiple children inherit from a single parent.
+    5. Hybrid Inheritance: Combination of two or more inheritance types.
+- `super()` function: Allows child classes to call methods and constructors of 
+  their parent class directly.
+- Method Resolution Order (MRO): The order in which Python searches for a method or 
+  attribute in a class hierarchy (`ClassName.mro()` or `ClassName.__mro__`).
+
+Example:
+    class Animal:
+        def __init__(self, name):
+            self.name = name
+
+        def speak(self):
+            return "Some generic sound"
+
+    class Dog(Animal):
+        def __init__(self, name, breed):
+            super().__init__(name)  # Call parent constructor
+            self.breed = breed
+
+        def speak(self):
+            return "Woof!"
+
+
+2. POLYMORPHISM
+--------------------------------------------------------------------------------
+- Definition: Derived from Greek words meaning "many forms". The ability of different 
+  classes to be treated through a uniform interface.
+- Core Idea: The same method name behaves differently depending on the class of 
+  the object executing it.
+
+A. Method Overriding:
+   - Occurs when a child class defines a method with the exact same name and signature 
+     as a method in its parent class.
+   - The child's implementation overrides/replaces the parent's implementation for 
+     instances of the child.
+   - Example shown in the `Dog.speak()` method above overriding `Animal.speak()`.
+
+B. Method Overloading:
+   - Defining multiple methods with the same name but differing parameter lists 
+     (types or counts).
+   - In Python: Python does NOT natively support method overloading like Java or C++. 
+     If you define multiple methods with the same name, the latest definition overwrites 
+     all previous ones.
+   - How to achieve it in Python:
+     1. Using default argument values:
+        def add(a, b, c=0):
+            return a + b + c
+     2. Using variable-length arguments (`*args`, `**kwargs`).
+     3. Using the `@functools.singledispatch` decorator.
+
+C. Duck Typing:
+   - Python's dynamic polymorphism philosophy: *"If it walks like a duck and quacks like 
+     a duck, it's a duck."*
+   - Python checks for the presence of specific methods/attributes at runtime rather than 
+     enforcing explicit inheritance types.
+
+
+3. ENCAPSULATION & DATA HIDING
+--------------------------------------------------------------------------------
+- Definition: Bundling the data (attributes) and the methods that operate on that data 
+  into a single unit (class), while restricting direct external access to internal details.
+- Purpose:
+    - Protects an object's internal state from unintended corruption or unauthorized modification.
+    - Implements clear boundaries and exposes only controlled public interfaces.
+
+A. Access Modifiers (Naming Conventions):
+   Unlike C++ or Java, Python does not enforce access specifiers strictly via keywords. 
+   It relies on conventions and name mangling:
+
+   1. Public (`name`):
+      - Accessible freely from inside and outside the class.
+      - Example: `self.name = "Alice"`
+
+   2. Protected (`_name` - Single Underscore):
+      - By convention, indicates that the attribute is intended for internal use 
+        within the class and its subclasses only.
+      - Not enforced by the interpreter; external code can still technically access it.
+      - Example: `self._balance = 1000`
+
+   3. Private (`__name` - Double Underscore):
+      - Python applies "Name Mangling" to prevent direct access from outside.
+      - Internally rewritten as `_ClassName__attributeName`.
+      - Can still technically be accessed via `obj._ClassName__name`, but serves as 
+        a strong safeguard against accidental modification and namespace collisions.
+      - Example: `self.__password = "secret"`
+
+B. Getters and Setters:
+   - Methods used to access (get) and modify (set) private/protected attributes safely.
+   - Setters allow data validation before updating a variable.
+
+   Example:
+       class Account:
+           def __init__(self, balance):
+               self.__balance = balance
+
+           def get_balance(self):
+               return self.__balance
+
+           def set_balance(self, amount):
+               if amount >= 0:
+                   self.__balance = amount
+               else:
+                   raise ValueError("Balance cannot be negative.")
+
+C. The `@property` Decorator (Pythonic Encapsulation):
+   - Turns a method into a readable attribute.
+   - Allows getter, setter, and deleter functionality with clean, intuitive attribute syntax 
+     (`account.balance` instead of `account.get_balance()`).
+
+   Example:
+       class BankAccount:
+           def __init__(self, balance):
+               self._balance = balance
+
+           @property
+           def balance(self):
+               """Getter: Access balance as an attribute."""
+               return self._balance
+
+           @balance.setter
+           def balance(self, amount):
+               """Setter: Validates and sets balance."""
+               if amount >= 0:
+                   self._balance = amount
+               else:
+                   raise ValueError("Amount cannot be negative.")
+
+       # Usage:
+       acc = BankAccount(500)
+       print(acc.balance)      # Calls getter -> 500
+       acc.balance = 800       # Calls setter -> updates value to 800
+================================================================================

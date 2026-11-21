@@ -41,7 +41,6 @@ class Movie:
             
 
 
-
 m1 = Movie()
 
 m1.book_ticket(5)
