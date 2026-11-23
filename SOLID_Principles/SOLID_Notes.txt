@@ -1,33 +1,49 @@
 SOLID Principles
 
 SOLID is a set of five object-oriented design principles that help make code maintainable, reusable, flexible and easier to extend.
+
 1. S — Single Responsibility Principle (SRP)
+
 A class should have only one responsibility or one reason to change.
 - Each class should focus on a specific task.
 - Avoid putting unrelated functionalities inside one class.
 - Makes code easier to maintain and debug.
+
 Example: An Employee class manages employee details, while a Payroll class handles salary calculations.
+
 2. O — Open/Closed Principle (OCP)
+
 Software entities should be open for extension but closed for modification.
 - You should be able to add new functionality without modifying existing, tested code.
 - Use inheritance, polymorphism and abstraction to extend behaviour.
 - Reduces the risk of breaking existing functionality.
+
 Example: Add new payment methods by creating new payment classes instead of modifying the existing payment system.
+
 3. L — Liskov Substitution Principle (LSP)
+
 Objects of a child class should be replaceable with objects of their parent class without breaking the expected behaviour of the program.
 - Child classes must follow the behaviour promised by their parent.
 - Overridden methods should preserve expected functionality.
 - Avoid inheritance when the child cannot correctly support the parent's behaviour.
+
 Example: Any subclass of Shape should correctly implement the area calculation expected from Shape.
+
 4. I — Interface Segregation Principle (ISP)
+
 A class should not be forced to implement methods that it does not need.
 - Prefer multiple small and specific interfaces over one large interface.
 - Classes should only implement the functionality relevant to them.
 - Reduces unnecessary dependencies.
+
 Example: Instead of one interface containing print(), scan() and fax(), create separate interfaces for printing, scanning and faxing.
+
+
 5. D — Dependency Inversion Principle (DIP)
+
 High-level modules should depend on abstractions rather than concrete implementations.
 - Both high-level and low-level modules should depend on abstractions.
 - Avoid tightly coupling classes to specific implementations.
 - Makes it easier to replace one implementation with another.
+i
 Example: A PaymentService should depend on a PaymentGateway abstraction rather than directly depending on a specific payment provider like Razorpay.

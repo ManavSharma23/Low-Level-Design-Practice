@@ -27,8 +27,6 @@
 #   7. A doctor cannot have two appointments at the same date and time.
 
 
-
-
 class Person:
 
     def __init__(self, name, age):
