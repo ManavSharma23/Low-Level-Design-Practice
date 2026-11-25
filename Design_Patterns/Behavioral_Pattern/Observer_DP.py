@@ -1,3 +1,10 @@
+# Observer Design Pattern:
+# A behavioral design pattern that establishes a one-to-many relationship between objects.
+# When the Subject changes its state, all registered Observers are automatically notified.
+# Promotes loose coupling, as the Subject doesn't need to know the internal details of Observers.
+# Example: YouTube notifications, Weather updates, Stock price alerts.
+
+
 from abc import ABC, abstractmethod
 
 class WeatherStation:
