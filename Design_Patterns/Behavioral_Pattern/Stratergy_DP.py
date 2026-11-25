@@ -1,3 +1,11 @@
+# Strategy Design Pattern
+# It is a behavioral design pattern that defines a family of algorithms
+# and puts each algorithm into a separate class.
+# It allows us to switch between different algorithms at runtime.
+# It promotes composition over inheritance and reduces conditional statements.
+# Example: Different payment methods like UPI, Credit Card, and Cash.
+
+
 from abc import ABC,abstractmethod
 
 class DiscountStratergy(ABC):
