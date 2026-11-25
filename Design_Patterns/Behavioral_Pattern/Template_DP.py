@@ -1,7 +1,9 @@
-
-
-
-
+# Template Method Design Pattern
+# It is a behavioral design pattern where the parent class defines the steps of a task.
+# Child classes implement specific steps according to their needs.
+# The parent decides the order in which the steps are performed.
+# It avoids writing the same code again and again.
+# Example: Processing JSON, CSV and Binary files using the same steps.
 
 
 from abc import ABC,abstractmethod
