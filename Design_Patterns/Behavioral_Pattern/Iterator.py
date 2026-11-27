@@ -1,3 +1,9 @@
+# Iterator Design Pattern
+# It is a behavioral design pattern used to access elements one by one.
+# It helps us go through a collection without knowing how it stores its elements.
+# The iterator keeps track of the current position and gives the next element when requested.
+# Example: Moving through songs in a playlist one by one.
+
 from abc import ABC,abstractmethod
 
 class iterator(ABC):
